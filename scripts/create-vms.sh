@@ -5,10 +5,11 @@ function create-vm {
 	CPU=$2
 	MEM_MB=$3
 	DISK_GB=$4
+	ARGS=$5
 	uvt-kvm list | grep $1
 	if [ "$?" -ne "0" ]
 	then
-		uvt-kvm create $NAME --cpu=$CPU --memory=$MEM_MB --disk=$DISK_GB
+		uvt-kvm create $NAME --cpu=$CPU --memory=$MEM_MB --disk=$DISK_GB $ARGS
 	fi
 }
 
@@ -22,3 +23,4 @@ create-vm quantum-gateway 2 4096 40
 create-vm openstack-dashboard 1 2048 20
 create-vm ceilometer 1 2048 20
 create-vm nagios 1 2048 20
+create-vm ovx 4 8192 40 "--run-script-once=install-ovx.sh"

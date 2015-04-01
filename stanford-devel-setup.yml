@@ -1,7 +1,7 @@
 ---
 # Play: set up head node
 # Assumes basic /etc/ansible/hosts file
-- hosts: singapore-head
+- hosts: stanford-dev-head
   sudo: yes
   tasks:
 
@@ -39,10 +39,16 @@
       state=link
 
   - name: Generate key to use in VMs
-    user: name=ubuntu generate_ssh_key=yes
+    sudo: no
+    user: name=onlab generate_ssh_key=yes
 
   - name: Get trusty image for uvtool
     shell: uvt-simplestreams-libvirt sync release=trusty arch=amd64
+
+  - name: Copy OVX installation script to node
+    sudo: no
+    copy: src=files/install-ovx.sh
+      dest={{ ansible_env['PWD'] }}/install-ovx.sh
 
   - name: Create VMs to host OpenCloud services
     sudo: no
@@ -79,7 +85,7 @@
     shell: ansible services -m ping -u ubuntu
 
 # Play: Install services using Juju
-- hosts: singapore-head
+- hosts: stanford-dev-head
   tasks:
   - name: Initialize Juju
     sudo: no
@@ -129,7 +135,7 @@
   - pause: prompt="Wait for relations to be fully added"
 
 # Play: Use libvirt hooks to set up iptables
-- hosts: singapore-head
+- hosts: stanford-dev-head
   sudo: yes
   tasks:
   - name: Enable port forwarding for services
@@ -151,7 +157,7 @@
     shell: /etc/libvirt/hooks/qemu start start
 
 # Play: Create credentials, set up some basic OpenStack 
-- hosts: singapore-head
+- hosts: stanford-dev-head
   sudo: no
   tasks:
 
@@ -173,7 +179,7 @@
     shell: cat {{ ansible_env['PWD'] }}/.ssh/id_rsa.pub
     register: sshkey
 
-- hosts: singapore-compute
+- hosts: stanford-dev-compute
   sudo: yes
   vars: 
     control_net: 192.168.122.0/24

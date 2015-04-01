@@ -28,3 +28,6 @@
 
 - shell: uvt-kvm ip ceilometer
   register: ceilometer_ip
+
+- shell: uvt-kvm ip ovx
+  register: ovx_ip
