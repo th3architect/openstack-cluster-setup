@@ -8,7 +8,8 @@ echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /u
 apt-get install oracle-java7-installer oracle-java7-set-default -y
 apt-get install supervisor -y
 
-cd /home/ubuntu; su -c "git clone https://github.com/OPENNETWORKINGLAB/OpenVirteX.git -b 0.0-MAINT" ubuntu
+#cd /home/ubuntu; su -c "git clone https://github.com/OPENNETWORKINGLAB/OpenVirteX.git -b 0.0-MAINT" ubuntu
+cd /home/ubuntu; su -c "git clone https://github.com/andybavier/OpenVirteX.git -b 0.0-MAINT-stanford" ubuntu
 
 #sh OpenVirteX/scripts/ovx.sh
 cat >/etc/supervisor/conf.d/ovx.conf <<EOF
