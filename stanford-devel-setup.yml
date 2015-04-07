@@ -22,6 +22,7 @@
     - ansible
     - uvtool
     - git
+    - bzr
 
   - name: Get juju-ansible git repo
     sudo: no
@@ -61,6 +62,8 @@
   - name: Add VMs to /etc/hosts
     template: src=templates/etc/hosts.j2
       dest=/etc/hosts
+    notify:
+    - Reload dnsmasq
 
   - name: Set up /etc/ansible/hosts
     template: src=templates/etc/ansible/hosts.j2
@@ -84,8 +87,14 @@
     sudo: no
     shell: ansible services -m ping -u ubuntu
 
+  handlers:
+  - name: Reload dnsmasq
+    shell: killall -HUP dnsmasq
+
 # Play: Install services using Juju
 - hosts: stanford-dev-head
+  vars:
+    charm_src: /usr/local/src/charms/trusty
   tasks:
   - name: Initialize Juju
     sudo: no
@@ -111,6 +120,18 @@
     sudo: no
     copy: src=files/openstack.cfg 
       dest={{ ansible_env['PWD'] }}/openstack.cfg
+
+  - name: Check for /usr/local/src/charms/trusty
+    sudo: yes
+    file: path={{ charm_src }}
+       state=directory
+       mode=0755
+
+  - name: Check out local copy of nova-cloud-controller charm
+    sudo: yes
+    bzr: name=lp:~andybavier/charms/trusty/nova-cloud-controller/ovx
+      dest={{ charm_src }}/nova-cloud-controller
+      force=no
 
   - name: Deploy OpenStack services with Juju
     script: scripts/juju-setup.py
@@ -174,6 +195,13 @@
 
   - name: Copy credentials to nova-cloud-controller
     shell: "scp admin-openrc.sh ubuntu@nova-cloud-controller:"
+
+  - name: Copy image setup script
+    copy: src=scripts/image-setup.sh
+      dest={{ ansible_env['PWD'] }}/image-setup.sh
+
+  - name: Run image setup script
+    shell: ansible nova-cloud-controller -m script -u ubuntu -a "{{ ansible_env['PWD'] }}/image-setup.sh"
 
   - name: Get public key
     shell: cat {{ ansible_env['PWD'] }}/.ssh/id_rsa.pub
