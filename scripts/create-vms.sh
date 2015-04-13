@@ -22,3 +22,6 @@ create-vm quantum-gateway 2 4096 40
 create-vm openstack-dashboard 1 2048 20
 create-vm ceilometer 1 2048 20
 create-vm nagios 1 2048 20
+
+create-vm compute-1 4 8192 100
+create-vm xos 2 4096 40
