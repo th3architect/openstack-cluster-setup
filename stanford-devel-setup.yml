@@ -25,18 +25,17 @@
     - bzr
 
   - name: Get juju-ansible git repo
-    sudo: no
     git: repo=https://github.com/cmars/juju-ansible.git
-      dest={{ ansible_env['PWD'] }}/juju-ansible
+      dest=/usr/local/src/juju-ansible
 
   - name: Set up juju-ansible symlink
     file: dest=/usr/local/bin/juju-ansible
-      src={{ ansible_env['PWD'] }}/juju-ansible
+      src=/usr/local/src/juju-ansible/juju-ansible
       state=link
 
   - name: Set up juju-ansible-playbook symlink
     file: dest=/usr/local/bin/juju-ansible-playbook
-      src={{ ansible_env['PWD'] }}/juju-ansible
+      src=/usr/local/src/juju-ansible/juju-ansible
       state=link
 
   - name: Generate key to use in VMs
@@ -47,9 +46,8 @@
     shell: uvt-simplestreams-libvirt sync release=trusty arch=amd64
 
   - name: Copy OVX installation script to node
-    sudo: no
     copy: src=files/install-ovx.sh
-      dest={{ ansible_env['PWD'] }}/install-ovx.sh
+      dest=/usr/local/src/install-ovx.sh
 
   - name: Create VMs to host OpenCloud services
     sudo: no
@@ -117,9 +115,9 @@
   # - pause: Break here and try rebooting Juju VM
 
   - name: Copy openstack.cfg for Juju 
-    sudo: no
+    sudo: yes
     copy: src=files/openstack.cfg 
-      dest={{ ansible_env['PWD'] }}/openstack.cfg
+      dest=/usr/local/src/openstack.cfg
 
   - name: Check for /usr/local/src/charms/trusty
     sudo: yes
@@ -177,7 +175,7 @@
   - name: run qemu hook
     shell: /etc/libvirt/hooks/qemu start start
 
-# Play: Create credentials, set up some basic OpenStack 
+# Play: Create credentials, set up some basic OpenStack stuff
 - hosts: stanford-dev-head
   sudo: no
   tasks:
@@ -197,11 +195,22 @@
     shell: "scp admin-openrc.sh ubuntu@nova-cloud-controller:"
 
   - name: Copy image setup script
+    sudo: yes
     copy: src=scripts/image-setup.sh
-      dest={{ ansible_env['PWD'] }}/image-setup.sh
+      dest=/usr/local/src/image-setup.sh
+      mode=0644
 
   - name: Run image setup script
-    shell: ansible nova-cloud-controller -m script -u ubuntu -a "{{ ansible_env['PWD'] }}/image-setup.sh"
+    shell: ansible nova-cloud-controller -m script -u ubuntu -a "/usr/local/src/image-setup.sh"
+
+  - name: Copy network setup script
+    sudo: yes
+    copy: src=scripts/network-setup.sh
+      dest=/usr/local/src/network-setup.sh
+      mode=0644
+
+  - name: Run network setup script
+    shell: ansible nova-cloud-controller -m script -u ubuntu -a "/usr/local/src/network-setup.sh"
 
   - name: Get public key
     shell: cat {{ ansible_env['PWD'] }}/.ssh/id_rsa.pub
@@ -211,8 +220,11 @@
   sudo: yes
   vars: 
     control_net: 192.168.122.0/24
-    gateway: 198.71.44.85
+    gateway: "{{ hostvars['stanford-devel']['ansible_eth0']['ipv4']['address'] }}"
   tasks:
+  - name: Install package needed by Juju
+    apt: name=python-yaml state=present
+
   - name: Add route via /etc/rc.local
     template: src=templates/etc/rc.local
       dest=/etc/rc.local
@@ -221,8 +233,8 @@
     - run /etc/rc.local
 
   - name: Add key
-    authorized_key: user=ubuntu
-      key="{{ hostvars['opencloud3.sing.internet2.edu']['sshkey']['stdout'] }}"
+    authorized_key: user="{{ ansible_env['SUDO_USER'] }}"
+      key="{{ hostvars['stanford-devel']['sshkey']['stdout'] }}"
 
   handlers:
   - name: run /etc/rc.local

@@ -23,4 +23,4 @@ create-vm quantum-gateway 2 4096 40
 create-vm openstack-dashboard 1 2048 20
 create-vm ceilometer 1 2048 20
 create-vm nagios 1 2048 20
-create-vm ovx 4 8192 40 "--run-script-once=install-ovx.sh"
+create-vm ovx 4 8192 40 "--run-script-once=/usr/local/src/install-ovx.sh"
