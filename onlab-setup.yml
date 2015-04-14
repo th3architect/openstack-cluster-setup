@@ -43,6 +43,10 @@
   - name: Get trusty image for uvtool
     shell: uvt-simplestreams-libvirt sync release=trusty arch=amd64
 
+  - name: Copy XOS installation script to node
+    copy: src=files/install-xos.sh
+      dest=/usr/local/src/install-xos.sh
+
   - name: Create VMs to host OpenCloud services
     sudo: no
     script: scripts/create-vms.sh
@@ -119,14 +123,14 @@
   - name: Set MTU for GRE tunneling
     shell: "juju set quantum-gateway instance-mtu=1400"
 
-  - name: Use HTTPS for keystone authentication
-    shell: 'juju set keystone use-https=yes'
+  - name: (Demo) don't use HTTPS for keystone authentication
+    shell: 'juju set keystone use-https=no'
 
-  - name: Use HTTPS for all service endpoints
-    shell: 'juju set keystone https-service-endpoints=True'
+  - name: (Demo) don't use HTTPS for all service endpoints
+    shell: 'juju set keystone https-service-endpoints=False'
 
-  - name: Use SSL for rabbitmq
-    shell: 'juju set rabbitmq-server ssl=on'
+  - name: (Demo) don't use SSL for rabbitmq
+    shell: 'juju set rabbitmq-server ssl=off'
 
   - name: Add all Juju relations between services
     script: scripts/juju-relations.py

@@ -28,3 +28,9 @@
 
 - shell: uvt-kvm ip ceilometer
   register: ceilometer_ip
+
+- shell: uvt-kvm ip xos
+  register: xos_ip
+
+- shell: uvt-kvm ip compute-1
+  register: compute_1_ip
