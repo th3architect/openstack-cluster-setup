@@ -36,6 +36,9 @@
     #repo_url: git://github.com/sfromm/ansible-playbooks.git
     repo_url: git://github.com/andybavier/opencloud-nova-compute-ansible.git
 
+    # Branch or tag to checkout
+    repo_version: onlab
+
   tasks:
 
   - name: Install ansible
