@@ -30,6 +30,7 @@ add_portal_access_rules() {
 
 add_web_access_rules() {
     add_rule "-p tcp --dport 80 -j ACCEPT"
+    add_rule "-p tcp --dport 8000 -j ACCEPT"
 }
 
 if [ "$OP" = "start" ]
