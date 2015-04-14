@@ -34,6 +34,7 @@ then
     add_port_fwd_rule 8080 openstack-dashboard 80
     add_port_fwd_rule 3128 nagios 80
     add_port_fwd_rule 8777 ceilometer 8777
+    add_port_fwd_rule 8000 xos 8000
 
     # Also flush the filter table before rules re-added
     iptables -F
