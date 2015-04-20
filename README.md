@@ -4,15 +4,16 @@ for use in [OpenCloud](http://guide.opencloud.us).  All of the OpenStack control
 single "head node" and connected by an isolated private network. [Juju](http://www.ubuntu.com/cloud/tools/juju) is used 
 to install and configure the OpenStack services.
 
-The 'onlab' branch contains modifications to set up a cluster for the [ON.LAB](http://onlab.us/) 
-[CORD demo](https://wiki.onosproject.org/display/ONOS/ON.LAB+demo+server+setup).  In addition to installing the OpenStack
-services, it also installs XOS and a compute node in VMs.
+The 'onlab' branch contains modifications to set up a server for the [ON.LAB](http://onlab.us/) 
+[CORD demo](https://wiki.onosproject.org/pages/viewpage.action?pageId=3441030).  Details of the server setup can be found [here](https://wiki.onosproject.org/display/ONOS/ON.LAB+demo+server+setup).  In addition to installing the OpenStack
+services, the playbook also installs XOS and a compute node in VMs.
 
 ## How to use it
 
 The playbook is designed to be run on a separate control machine that has a recent version of Ansible installed (e.g., a laptop).
 Here are the basic steps for installing a cluster with the same setup used in the ON.LAB demo.
 
+* Install Ubuntu 14.04 LTS on the head node.
 * Create *foo-setup.yaml* and *foo-compute.yaml* files using *onlab-setup.yaml* and *onlab-compute.yaml* as templates.  
   * Change the *- hosts:* lines as appropriate for your own head and compute nodes .  
   * Change *cordsrv01* to the DNS name of your head node.
