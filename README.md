@@ -13,6 +13,7 @@ services, the playbook also installs XOS and a compute node in VMs.
 The playbook is designed to be run on a separate control machine that has a recent version of Ansible installed (e.g., a laptop).
 Here are the basic steps for installing a cluster with the same setup used in the ON.LAB demo.
 
+* Install Ubuntu 14.04 LTS on the head node.
 * Create *foo-setup.yaml* and *foo-compute.yaml* files using *onlab-setup.yaml* and *onlab-compute.yaml* as templates.  
   * Change the *- hosts:* lines as appropriate for your own head and compute nodes .  
   * Change *cordsrv01* to the DNS name of your head node.
