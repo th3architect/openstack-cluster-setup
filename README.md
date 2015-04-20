@@ -23,7 +23,7 @@ Here are the basic steps for installing a cluster with the same setup used in th
 
 ## Things to note
 
-* Open VirteX is not yet installed by the playbook, though it is intended to be part of the demo.
+* [Open VirteX](http://ovx.onlab.us/) is not yet installed by the playbook, though it is intended to be part of the demo.
 * The installation configures port forwarding so that the OpenStack services can be accessed from outside the private network. Some OpenCloud-specific firewalling is also introduced, which will likely require modification for other setups.  See: [files/etc/libvirt/hooks/qemu](https://github.com/andybavier/opencloud-cluster-setup/blob/onlab/files/etc/libvirt/hooks/qemu).
 * By default the compute nodes are controlled and updated automatically using *ansible-pull* from the onlab branch of [this repo](https://github.com/andybavier/opencloud-nova-compute-ansible).  You may want to change this.
 * Following installation, XOS still needs to be configured to control the OpenStack cluster.  See the [OpenCloud Guide](http:guide.opencloud.us) for information on how to do this.
