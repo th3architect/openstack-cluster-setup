@@ -4,9 +4,9 @@ for use in [OpenCloud](http://guide.opencloud.us).  All of the OpenStack control
 single "head node" and connected by an isolated private network. [Juju](http://www.ubuntu.com/cloud/tools/juju) is used 
 to install and configure the OpenStack services.
 
-The 'onlab' branch contains modifications to set up a cluster for the [ON.LAB](http://onlab.us/) 
-[CORD demo](https://wiki.onosproject.org/display/ONOS/ON.LAB+demo+server+setup).  In addition to installing the OpenStack
-services, it also installs XOS and a compute node in VMs.
+The 'onlab' branch contains modifications to set up a server for the [ON.LAB](http://onlab.us/) 
+[CORD demo](https://wiki.onosproject.org/pages/viewpage.action?pageId=3441030).  Details of the server setup can be found [here](https://wiki.onosproject.org/display/ONOS/ON.LAB+demo+server+setup).  In addition to installing the OpenStack
+services, the playbook also installs XOS and a compute node in VMs.
 
 ## How to use it
 
