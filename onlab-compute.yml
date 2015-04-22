@@ -4,6 +4,9 @@
   tasks:
   - pause: "Install nova-compute on all unused machines managed by Juju"
 
+  - name: Make sure we're using QEMU
+    shell: juju set nova-compute virt-type=qemu
+
   - name: Deploy nova-compute
     script: scripts/juju-compute-setup.py
 
