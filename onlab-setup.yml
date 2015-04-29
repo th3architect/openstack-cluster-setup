@@ -195,17 +195,22 @@
   sudo: yes
   vars: 
     control_net: 192.168.122.0/24
-    gateway: 192.168.122.1
+    gateway: 10.254.1.22
   tasks:
   - name: Install package needed by Juju
     apt: name=python-yaml state=present
 
-  #- name: Add route via /etc/rc.local
-  #  template: src=templates/etc/rc.local
-  #    dest=/etc/rc.local
-  #    mode=0755
-  #  notify:
-  #  - run /etc/rc.local
+  - name: Add route via /etc/rc.local
+    template: src=templates/etc/rc.local
+      dest=/etc/rc.local
+      mode=0755
+    notify:
+    - run /etc/rc.local
+
+  - name: Set up password-less sudo for admin user
+    copy: src=files/etc/sudoers.d/admin
+      dest=/etc/sudoers.d/admin
+      mode=0440
 
   - name: Add key
     authorized_key: user="{{ ansible_env['SUDO_USER'] }}"

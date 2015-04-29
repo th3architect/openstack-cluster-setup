@@ -7,8 +7,8 @@
   - name: Deploy nova-compute
     script: scripts/juju-compute-setup.py
 
-  - name: Make sure we're using QEMU
-    shell: juju set nova-compute virt-type=qemu
+  - name: Make sure we're using KVM
+    shell: juju set nova-compute virt-type=kvm
 
   - pause: "Wait until services have started"
 
