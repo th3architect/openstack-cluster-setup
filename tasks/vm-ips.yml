@@ -32,5 +32,8 @@
 - shell: uvt-kvm ip xos
   register: xos_ip
 
-- shell: uvt-kvm ip compute-1
-  register: compute_1_ip
+- shell: uvt-kvm ip onos-internet
+  register: onos_internet_ip
+
+- shell: uvt-kvm ip onos-customer
+  register: onos_customer_ip

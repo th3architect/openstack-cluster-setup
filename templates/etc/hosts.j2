@@ -11,7 +11,10 @@
 {{ ceilometer_ip.stdout }} ceilometer
 {{ nagios_ip.stdout }} nagios
 {{ xos_ip.stdout }} xos
-{{ compute_1_ip.stdout }} compute-1
+{{ onos_internet_ip.stdout }} onos-internet
+{{ onos_customer_ip.stdout }} onos-customer
+10.254.1.25 cordcompute01 cordcompute01.onlab.us
+10.254.1.26 cordcompute02 cordcompute02.onlab.us
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
