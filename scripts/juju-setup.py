@@ -16,7 +16,7 @@ services = {
     "keystone" : "--config=%s keystone" % jujuconfig,
     "glance" : "--config=%s glance" % jujuconfig,
     "nova-cloud-controller" : "--config=%s cs:~andybavier/trusty/nova-cloud-controller" % jujuconfig,
-    "quantum-gateway" : "--config=%s cs:~andybavier/trusty/quantum-gateway" % jujuconfig,
+    "quantum-gateway" : "--config=%s --repository=/usr/local/src/charms local:trusty/quantum-gateway" % jujuconfig,
     "openstack-dashboard" : "--config=%s openstack-dashboard" % jujuconfig,
     "nagios" : "nagios",
     "mongodb" : "mongodb",   # deploy to ceilometer machine

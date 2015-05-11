@@ -22,6 +22,7 @@
     - ansible
     - uvtool
     - git
+    - bzr
 
   - name: Get juju-ansible git repo
     git: repo=https://github.com/cmars/juju-ansible.git
@@ -89,6 +90,8 @@
 
 # Play: Install services using Juju
 - hosts: onlab-head
+  vars:
+    charm_src: /usr/local/src/charms/trusty
   tasks:
   - name: Initialize Juju
     sudo: no
@@ -114,6 +117,21 @@
     sudo: yes
     copy: src=files/openstack.cfg 
       dest=/usr/local/src/openstack.cfg
+
+  - name: Check for /usr/local/src/charms/trusty
+    sudo: yes
+    file: path={{ charm_src }}
+       state=directory
+       mode=0755
+
+  - name: Check out local copy of modified Juju charms
+    sudo: yes
+    bzr: name=lp:~andybavier/charms/trusty/{{ item }}/cord
+      dest={{ charm_src }}/{{ item }}
+      force=no
+    with_items:
+    - nova-compute
+    - quantum-gateway
 
   - name: Deploy OpenStack services with Juju
     script: scripts/juju-setup.py

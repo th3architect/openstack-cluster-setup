@@ -7,7 +7,7 @@ import time
 jujuconfig="/usr/local/src/openstack.cfg"
 
 services = {
-    "nova-compute" : "--config=%s cs:~andybavier/trusty/nova-compute" % jujuconfig,
+    "nova-compute" : "--config=%s --repository=/usr/local/src/charms local:trusty/nova-compute" % jujuconfig,
 }
 
 def get_free_machines(status):
