@@ -41,7 +41,7 @@ create-flat-net ext
 
 create-flat-net wan
 # Can't use 10/8 for this because XOS already uses it for private networks
-create-subnet-no-gateway wan 192.168.128.0/17
+create-subnet wan 192.168.128.0/17 192.168.128.1
 
 create-flat-net lan
 # The IP range for this is bogus, Neutron just needs something
