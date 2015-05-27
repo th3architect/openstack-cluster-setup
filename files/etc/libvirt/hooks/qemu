@@ -22,6 +22,7 @@ add_rule() {
 add_local_access_rules() {
     SUBNET=$( ip addr show $NIC|grep "inet "|awk '{print $2}' )
     add_rule "-s $SUBNET -j ACCEPT"
+    add_rule "-i lxcbr0 -j ACCEPT"
 }
 
 add_portal_access_rules() {
