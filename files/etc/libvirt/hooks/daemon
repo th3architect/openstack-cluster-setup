@@ -22,6 +22,11 @@ add_port_fwd_rule() {
     fi
 }
 
+# Add iptables MASQ rule for LXC containers running on the head node
+add_lxc_masq_rule() {
+    iptables -t nat -A POSTROUTING -j MASQUERADE --source 10.0.3.0/24 ! --dest 10.0.3.0/24
+}
+
 if [ "$OP" = "start" ] || [ "$OP" = "reload" ]
 then
     iptables -t nat -F
@@ -35,6 +40,7 @@ then
     add_port_fwd_rule 3128 nagios 80
     add_port_fwd_rule 8777 ceilometer 8777
     add_port_fwd_rule 8000 xos 8000
+    add_lxc_masq_rule
 
     # Also flush the filter table before rules re-added
     iptables -F
