@@ -13,7 +13,7 @@ add_port_fwd_rule() {
     DPORT=$1
     VM=$2
     TOPORT=$3
-    
+
     VMIP=$( getent ahosts $VM|head -1|awk '{print $1}' )
     iptables -t nat -C PREROUTING -p tcp -i $NIC --dport $DPORT -j DNAT --to-destination $VMIP:$TOPORT
     if [ "$?" -ne 0 ]
@@ -40,8 +40,12 @@ then
     add_port_fwd_rule 3128 nagios 80
     add_port_fwd_rule 8777 ceilometer 8777
     add_port_fwd_rule 8000 xos 8000
+    add_port_fwd_rule 8003 cordcmi 8003
+    add_port_fwd_rule 8004 cordcmi 8004
+    add_port_fwd_rule 8140 cordcmi 8140
+    add_port_fwd_rule 1022 cordcmi 1022
     add_lxc_masq_rule
 
     # Also flush the filter table before rules re-added
     iptables -F
-fi	
+fi

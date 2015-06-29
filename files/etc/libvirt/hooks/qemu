@@ -34,9 +34,17 @@ add_web_access_rules() {
     add_rule "-p tcp --dport 8000 -j ACCEPT"
 }
 
+add_cmi_access_rules() {
+    add_rule "-p tcp --dport 8003 -j ACCEPT"
+    add_rule "-p tcp --dport 8004 -j ACCEPT"
+    add_rule "-p tcp --dport 8140 -j ACCEPT"
+    add_rule "-p tcp --dport 1022 -j ACCEPT"
+}
+
 if [ "$OP" = "start" ]
 then
 	add_local_access_rules
 	add_portal_access_rules
 	add_web_access_rules
-fi	
+  add_cmi_access_rules
+fi
