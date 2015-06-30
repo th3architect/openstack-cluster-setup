@@ -18,7 +18,7 @@ add_port_fwd_rule() {
     iptables -t nat -C PREROUTING -p tcp -i $NIC --dport $DPORT -j DNAT --to-destination $VMIP:$TOPORT
     if [ "$?" -ne 0 ]
     then
-	iptables -t nat -A PREROUTING -p tcp -i $NIC --dport $DPORT -j DNAT --to-destination $VMIP:$TOPORT
+       iptables -t nat -A PREROUTING -p tcp -i $NIC --dport $DPORT -j DNAT --to-destination $VMIP:$TOPORT
     fi
 }
 
@@ -44,6 +44,7 @@ then
     add_port_fwd_rule 8004 cordcmi 8004
     add_port_fwd_rule 8140 cordcmi 8140
     add_port_fwd_rule 1022 cordcmi 1022
+    add_port_fwd_rule 6633 onos-fabric 6633
     add_lxc_masq_rule
 
     # Also flush the filter table before rules re-added
