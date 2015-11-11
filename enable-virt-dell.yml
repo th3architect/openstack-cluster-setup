@@ -16,7 +16,7 @@
   - shell: gpg -a --export 1285491434D8786F | sudo apt-key add -
 
   - name: Update apt cache
-    apt: upgrade=yes update_cache=yes
+    apt: update_cache=yes
 
   - name: Install packages
     apt: name=dtk-scripts state=present
