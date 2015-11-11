@@ -1,8 +1,12 @@
 # Enable virtualization on Dell R410s
 ---
-- hosts: onlab-compute
+- hosts: node70.princeton.vicci.org
   sudo: yes
   tasks:
+  - name: Remove old apt proxy config
+    file: path=/etc/apt/apt.conf
+     state=absent
+
   - name: Update files
     copy: src=files/etc/apt/sources.list.d/linux.dell.com.sources.list
       dest=/etc/apt/sources.list.d/linux.dell.com.sources.list
