@@ -21,8 +21,8 @@ to install and configure the OpenStack services.
 
 Once the prerequisites are satisfied, here are the basic steps for installing a new OpenCloud cluster named 'foo':
 
-* Create *foo-setup.yml* and *foo-compute.yml* files using *cloudlab-setup.yml* and *cloudlab-compute.yml* as templates.  Create a *foo-hosts* file with the DNS names of your nodes based on *cloudlab-hosts*.
-* If you are **not** installing on CloudLab, edit *group_vars/all*.  Change *cloudlab: true* to *cloudlab: false*.
+* Create *foo-setup.yml* and *foo-compute.yml* files using *cloudlab-setup.yml* and *cloudlab-compute.yml* as templates.  
+* Create a *foo-hosts* file with the DNS names of your nodes based on *cloudlab-hosts*.  If you are **not** installing on CloudLab, change *cloudlab=yes* to *cloudlab=no*.
 * If you are installing a cluster for inclusion in the **public OpenCloud**, change *mgmt_net_prefix* in *foo-setup.yml* to be unique across all OpenCloud clusters.
 * To set up Juju, use it to install the OpenStack services on the head node, and prep the compute nodes, run on the head node:
 ```
@@ -36,6 +36,15 @@ $ juju add-machine ssh:ubuntu@compute-node
 ```
 $ ansible-playbook -i foo-hosts foo-compute.yaml
 ```
+
+## Helper playbooks
+
+There are also a couple of helper playbooks that are mainly useful when installing on DELL machines that
+used to be part of VICCI.
+
+* *ipmi-setup.yml*: Configure IPMI as done in VICCI (192.168.0.x, shared on em1).  Specify `--extra-vars "ipmi_password=foobarbaz"` to set the IPMI password.
+
+* *enable-virt-dell.yml*: Make sure that virtualization is enabled in the BIOS.
 
 ## Things to note
 

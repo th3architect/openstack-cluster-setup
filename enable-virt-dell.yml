@@ -1,19 +1,16 @@
 # Enable virtualization on Dell R410s
 ---
-- hosts: node70.princeton.vicci.org
+- hosts: all
   sudo: yes
   tasks:
-  - name: Remove old apt proxy config
-    file: path=/etc/apt/apt.conf
-     state=absent
-
   - name: Update files
     copy: src=files/etc/apt/sources.list.d/linux.dell.com.sources.list
       dest=/etc/apt/sources.list.d/linux.dell.com.sources.list
 
-  - shell: gpg --keyserver pool.sks-keyservers.net --recv-key 1285491434D8786F
-
-  - shell: gpg -a --export 1285491434D8786F | sudo apt-key add -
+  - name: Add repo key
+    apt_key: keyserver=pool.sks-keyservers.net
+      id=1285491434D8786F
+      state=present
 
   - name: Update apt cache
     apt: update_cache=yes
