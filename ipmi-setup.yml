@@ -1,0 +1,20 @@
+---
+# Setup IPMI for VICCI cluster nodes
+# You need to specify the IPMI password on the command line
+# For ex: ansible-playbook -i hosts ipmi-setup.yml --extra-vars "ipmi_password=foobarbaz"
+- hosts: all
+  sudo: yes
+  tasks:
+  - name: Copy templates
+    template: src=templates/{{ item }}
+      dest={{ item }}
+      mode=0755
+    with_items:
+    - /root/ipmi-cmd.sh
+    - /root/bmc-config.sh
+    notify:
+    - Run bmc-config.sh
+
+  handlers:
+  - name: Run bmc-config.sh
+    shell: /root/bmc-config.sh
