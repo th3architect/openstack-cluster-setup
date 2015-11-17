@@ -4,4 +4,4 @@ head    ansible_ssh_host=ctl.install.xos-pg0.clemson.cloudlab.us
 cp-1.install.xos-pg0.clemson.cloudlab.us
 
 [all:vars]
-cloudlab=yes
+cloudlab=true

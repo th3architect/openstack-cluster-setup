@@ -22,7 +22,7 @@ to install and configure the OpenStack services.
 Once the prerequisites are satisfied, here are the basic steps for installing a new OpenCloud cluster named 'foo':
 
 * Create *foo-setup.yml* and *foo-compute.yml* files using *cloudlab-setup.yml* and *cloudlab-compute.yml* as templates.  
-* Create a *foo-hosts* file with the DNS names of your nodes based on *cloudlab-hosts*.  If you are **not** installing on CloudLab, change *cloudlab=yes* to *cloudlab=no*.
+* Create a *foo-hosts* file with the DNS names of your nodes based on *cloudlab-hosts*.  If you are **not** installing on CloudLab, change *cloudlab=true* to *cloudlab=false*.
 * If you are installing a cluster for inclusion in the **public OpenCloud**, change *mgmt_net_prefix* in *foo-setup.yml* to be unique across all OpenCloud clusters.
 * To set up Juju, use it to install the OpenStack services on the head node, and prep the compute nodes, run on the head node:
 ```
