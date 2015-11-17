@@ -1,0 +1,6 @@
+head    ansible_ssh_host=node70.princeton.vicci.org
+
+[compute]
+
+[all:vars]
+cloudlab=false
