@@ -43,16 +43,16 @@ function wait-for-vm {
   done
 }
 
-create-vm juju 1 2048 20
-create-vm mysql 2 4096 40
-create-vm rabbitmq-server 2 4096 40
-create-vm keystone 2 4096 40
-create-vm glance 2 4096 160
-create-vm nova-cloud-controller 2 4096 40
-create-vm neutron-api 2 4096 40
-create-vm openstack-dashboard 1 2048 20
-create-vm ceilometer 1 2048 20
-create-vm nagios 1 2048 20
+#create-vm juju 1 2048 20
+#create-vm mysql 2 4096 40
+#create-vm rabbitmq-server 2 4096 40
+#create-vm keystone 2 4096 40
+#create-vm glance 2 4096 160
+#create-vm nova-cloud-controller 2 4096 40
+#create-vm neutron-api 2 4096 40
+#create-vm openstack-dashboard 1 2048 20
+#create-vm ceilometer 1 2048 20
+#create-vm nagios 1 2048 20
 
 create-vm xos 2 4096 40
 create-vm onos-cord 2 4096 40
@@ -63,16 +63,16 @@ then
 fi
 
 # Wait for everything to get set up
-wait-for-vm juju
-wait-for-vm mysql
-wait-for-vm rabbitmq-server
-wait-for-vm keystone
-wait-for-vm glance
-wait-for-vm nova-cloud-controller
-wait-for-vm neutron-api
-wait-for-vm openstack-dashboard
-wait-for-vm ceilometer
-wait-for-vm nagios
+#wait-for-vm juju
+#wait-for-vm mysql
+#wait-for-vm rabbitmq-server
+#wait-for-vm keystone
+#wait-for-vm glance
+#wait-for-vm nova-cloud-controller
+#wait-for-vm neutron-api
+#wait-for-vm openstack-dashboard
+#wait-for-vm ceilometer
+#wait-for-vm nagios
 
 wait-for-vm xos
 wait-for-vm onos-cord

@@ -77,10 +77,18 @@
     set_fact:
       is_cloudlab : "{{ is_mkextrafs.stat.exists }}"
 
-  - name: (CloudLab) Set up extra disk space
+  - name: (CloudLab) Set up extra disk space for uvt-kvm
     shell: /usr/testbed/bin/mkextrafs -f /var/lib/uvtool/libvirt/images
       creates=/var/lib/uvtool/libvirt/images/lost+found
     when: is_cloudlab
+
+  - name: (CloudLab) Set up extra disk space for LXC
+    shell: /usr/testbed/bin/mkextrafs -r /dev/sdb -f /var/lib/lxc
+      creates=/var/lib/lxc/lost+found
+    when: is_cloudlab
+
+  - name: Install LXC
+    apt: name=lxc state=latest
 
   - name: Add myself to libvirtd group
     user: name={{ ansible_env['SUDO_USER'] }}
@@ -210,7 +218,7 @@
     template: src=templates/cord.yaml dest={{ ansible_env['PWD'] }}/cord.yaml
 
   - name: Deploy OpenStack services with Juju
-    shell: juju quickstart cord.yaml
+    shell: juju quickstart --no-browser cord.yaml
 
 - hosts: head
   sudo: no

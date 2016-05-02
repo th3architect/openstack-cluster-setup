@@ -1,24 +1,6 @@
 machines:
   '1':
     constraints: arch=amd64
-  '2':
-    constraints: arch=amd64
-  '3':
-    constraints: arch=amd64
-  '4':
-    constraints: arch=amd64
-  '5':
-    constraints: arch=amd64
-  '6':
-    constraints: arch=amd64
-  '7':
-    constraints: arch=amd64
-  '8':
-    constraints: arch=amd64
-  '9':
-    constraints: arch=amd64
-  '10':
-    constraints: arch=amd64
 relations:
 - - nova-compute:amqp
   - rabbitmq-server:amqp
@@ -96,7 +78,7 @@ services:
     options:
       openstack-origin: cloud:trusty-kilo
     to:
-    - '7'
+    - 'lxc:0'
   ceilometer-agent:
     charm: cs:trusty/ceilometer-agent-13
     num_units: 0
@@ -110,7 +92,7 @@ services:
       ha-mcastport: 5402
       openstack-origin: cloud:trusty-kilo
     to:
-    - '4'
+    - 'lxc:0'
   keystone:
     annotations:
       gui-x: '500'
@@ -124,12 +106,12 @@ services:
       openstack-origin: cloud:trusty-kilo
       use-https: no
     to:
-    - '3'
+    - 'lxc:0'
   mongodb:
     charm: cs:trusty/mongodb-33
     num_units: 1
     to:
-    - '7'
+    - 'lxc:0'
   mysql:
     annotations:
       gui-x: '0'
@@ -139,12 +121,12 @@ services:
     options:
       max-connections: 20000
     to:
-    - '1'
+    - 'lxc:0'
   nagios:
     charm: cs:trusty/nagios-10
     num_units: 1
     to:
-    - '8'
+    - 'lxc:0'
   neutron-api:
     annotations:
       gui-x: '500'
@@ -158,7 +140,7 @@ services:
       openstack-origin: cloud:trusty-kilo
       overlay-network-type: vxlan
     to:
-    - '9'
+    - 'lxc:0'
   nova-cloud-controller:
     annotations:
       gui-x: '0'
@@ -172,7 +154,7 @@ services:
       openstack-origin: cloud:trusty-kilo
       #quantum-security-groups: 'yes'
     to:
-    - '5'
+    - 'lxc:0'
   nova-compute:
     annotations:
       gui-x: '250'
@@ -188,7 +170,7 @@ services:
       openstack-origin: cloud:trusty-kilo
       #manage-neutron-plugin-legacy-mode: False
     to:
-    - '10'
+    - '1'
   nrpe:
     charm: cs:trusty/nrpe-4
     num_units: 0
@@ -207,7 +189,7 @@ services:
     options:
       openstack-origin: cloud:trusty-kilo
     to:
-    - '6'
+    - 'lxc:0'
   rabbitmq-server:
     annotations:
       gui-x: '500'
@@ -217,4 +199,4 @@ services:
     options:
       ssl: 'off'
     to:
-    - '2'
+    - 'lxc:0'
