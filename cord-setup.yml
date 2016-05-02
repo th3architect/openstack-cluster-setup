@@ -82,6 +82,9 @@
       creates=/var/lib/uvtool/libvirt/images/lost+found
     when: is_cloudlab
 
+  - name: Create /var/lib/lxc
+    file: path="/var/lib/lxc" state=directory
+
   - name: (CloudLab) Set up extra disk space for LXC
     shell: /usr/testbed/bin/mkextrafs -r /dev/sdb -f /var/lib/lxc
       creates=/var/lib/lxc/lost+found
