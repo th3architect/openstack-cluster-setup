@@ -29,7 +29,7 @@ function create-vm {
 			# Don't use mgmtbr for testing
 			uvt-kvm create $NAME release=trusty --cpu=$CPU --memory=$MEM_MB --disk=$DISK_GB
 		else
-			uvt-kvm create $NAME release=trusty --cpu=$CPU --memory=$MEM_MB --disk=$DISK_GB --bridge mgmtbr
+			uvt-kvm create $NAME release=trusty --cpu=$CPU --memory=$MEM_MB --disk=$DISK_GB --bridge lxcbr0
 		fi
 		# uvt-kvm wait --insecure $NAME
 	fi
