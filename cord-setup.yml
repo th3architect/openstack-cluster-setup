@@ -240,7 +240,7 @@
     shell: cp -f {{ ansible_env['PWD'] }}/admin-openrc.sh /tmp
 
   - name: Copy credentials to nova-cloud-controller
-    shell: "scp admin-openrc.sh ubuntu@nova-cloud-controller:"
+    shell: "juju scp admin-openrc.sh nova-cloud-controller/0:"
 
 - hosts: head
   sudo: no
