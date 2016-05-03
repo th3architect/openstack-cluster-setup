@@ -93,6 +93,11 @@
   - name: Install LXC
     apt: name=lxc state=latest
 
+  - name: Update /etc/lxc/default.conf
+    copy: src=files/etc/lxc/default.conf
+      dest=/etc/lxc/default.conf
+      mode=0644
+
   - name: Add myself to libvirtd group
     user: name={{ ansible_env['SUDO_USER'] }}
       groups=libvirtd
