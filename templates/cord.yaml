@@ -1,4 +1,6 @@
 machines:
+  '0':
+    constraints: arch=amd64
   '1':
     constraints: arch=amd64
 relations:
