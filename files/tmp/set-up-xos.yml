@@ -42,5 +42,4 @@
   - file: path={{ ansible_env['PWD'] }}/xos/xos/configurations/cord-pod/images
       state=directory
 
-  - get_url: url=http://www.vicci.org/opencloud/trusty-server-cloudimg-amd64-disk1.img
-      dest={{ ansible_env['PWD'] }}/xos/xos/configurations/cord-pod/images/trusty-server-multi-nic.img
+  - shell: source {{ ansible_env['PWD'] }}/xos/xos/configurations/cord-pod/admin-openrc.sh; glance image-list|grep trusty-server-multi-nic || glance image-create --name trusty-server-multi-nic --disk-format qcow2 --container-format bare --is-public True --copy-from http://www.vicci.org/opencloud/trusty-server-cloudimg-amd64-disk1.img

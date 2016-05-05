@@ -20,6 +20,7 @@ function bootstrap() {
     sudo apt-get update
     sudo apt-get -y install git
     git clone https://github.com/open-cloud/openstack-cluster-setup.git
+    git checkout feature/add-image-to-glance
     cd ~/openstack-cluster-setup
     ./bootstrap.sh
 
