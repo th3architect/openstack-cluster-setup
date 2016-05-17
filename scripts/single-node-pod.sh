@@ -94,10 +94,10 @@ function setup_xos() {
 
     ssh ubuntu@xos "cd xos/xos/configurations/cord-pod; make cord"
 
-    if [[ $EXAMPLESERVICE -eq 1 ]]
-    then
-      ssh ubuntu@xos "cd xos/xos/configurations/cord-pod; make exampleservice"
-    fi
+#    if [[ $EXAMPLESERVICE -eq 1 ]]
+#    then
+#      ssh ubuntu@xos "cd xos/xos/configurations/cord-pod; make exampleservice"
+#    fi
 }
 
 function setup_test_client() {
@@ -250,10 +250,10 @@ then
   setup_xos
   setup_test_client
   run_e2e_test
-  if [[ $EXAMPLESERVICE -eq 1 ]]
-  then
-    run_exampleservice_test
-  fi
+#  if [[ $EXAMPLESERVICE -eq 1 ]]
+#  then
+#    run_exampleservice_test
+#  fi
 fi
 
 exit 0
